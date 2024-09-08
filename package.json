@@ -1,0 +1,20 @@
+{
+  "name": "@helptheweb/helper",
+  "version": "0.0.1",
+  "description": "A TypeScript accessibility tool for web applications",
+  "main": "dist/helper.js",
+  "types": "dist/helper.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": [
+    "accessibility",
+    "typescript",
+    "web"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.5.0"
+  }
+}
