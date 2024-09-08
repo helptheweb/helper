@@ -25,7 +25,6 @@ export class Helper {
   private styleElement: HTMLStyleElement;
 
   constructor(options: HelperOptions = {}) {
-    console.log(options);
     this.fontSizeDefault = options.defaultFontSize || 16;
     this.fontSizeCurrent = this.fontSizeDefault;
     this.buttonColor = options.buttonColor || '#1e232f';
