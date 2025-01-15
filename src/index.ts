@@ -16,12 +16,12 @@ export class Helper {
     underlineLinks: boolean;
     readableFont: boolean;
   } = {
-    greyscale: false,
-    highContrast: false,
-    negativeContrast: false,
-    underlineLinks: false,
-    readableFont: false
-  };
+      greyscale: false,
+      highContrast: false,
+      negativeContrast: false,
+      underlineLinks: false,
+      readableFont: false
+    };
   private styleElement: HTMLStyleElement;
 
   constructor(options: HelperOptions = {}) {
@@ -46,6 +46,19 @@ export class Helper {
   public resetFontSize = (): void => {
     this.fontSizeCurrent = this.fontSizeDefault;
     this.updateFontSize();
+  }
+
+  public resetAll = (): void => {
+    // Reset font size
+    this.resetFontSize();
+
+    // Reset all settings to false
+    Object.keys(this.settings).forEach(setting => {
+      this.settings[setting as keyof typeof this.settings] = false;
+    });
+
+    // Clear any applied styles
+    this.applySettings();
   }
 
   private updateFontSize = (): void => {
@@ -160,12 +173,46 @@ export class Helper {
 
     panel.appendChild(createButton('Increase Text Size', this.increaseFontSize));
     panel.appendChild(createButton('Decrease Text Size', this.decreaseFontSize));
-    panel.appendChild(createButton('Reset text size', this.resetFontSize));
+    panel.appendChild(createButton('Reset Text Size', this.resetFontSize));
     panel.appendChild(createButton('Greyscale', () => this.toggleSetting('greyscale')));
     panel.appendChild(createButton('High Contrast', () => this.toggleSetting('highContrast')));
     panel.appendChild(createButton('Negative Contrast', () => this.toggleSetting('negativeContrast')));
     panel.appendChild(createButton('Underline Links', () => this.toggleSetting('underlineLinks')));
     panel.appendChild(createButton('Readable Font', () => this.toggleSetting('readableFont')));
+
+    // Add separator before Reset All button
+    const separator = document.createElement('hr');
+    separator.style.cssText = `
+      width: 100%;
+      border: none;
+      border-top: 1px solid #dee2e6;
+      margin: 4px 0;
+    `;
+    panel.appendChild(separator);
+
+    // Add Reset All button using the same createButton function
+    panel.appendChild(createButton('Reset All Settings', () => this.resetAll()));
+
+    // Add link to helptheweb.org
+    const link = document.createElement('a');
+    link.href = 'https://helptheweb.org';
+    link.target = '_blank';
+    link.style.cssText = `
+      text-align: center;
+      color: ${this.buttonColor};
+      text-decoration: none;
+      font-size: 12px;
+      margin-top: 8px;
+      padding: 4px;
+    `;
+    link.textContent = 'Powered by helptheweb.org';
+    link.addEventListener('mouseover', () => {
+      link.style.textDecoration = 'underline';
+    });
+    link.addEventListener('mouseout', () => {
+      link.style.textDecoration = 'none';
+    });
+    panel.appendChild(link);
 
     let isPanelOpen = false;
 
