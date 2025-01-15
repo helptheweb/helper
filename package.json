@@ -1,9 +1,9 @@
 {
   "name": "@helptheweb/helper",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "A TypeScript accessibility tool for web applications",
-  "main": "dist/helper.js",
-  "types": "dist/helper.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "clean": "rimraf dist",
     "build": "npm run clean && tsup"
@@ -13,7 +13,7 @@
     "typescript",
     "web"
   ],
-  "author": "Your Name",
+  "author": "helptheweb.org",
   "license": "MIT",
   "devDependencies": {
     "typescript": "^4.5.0"
