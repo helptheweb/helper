@@ -6,7 +6,7 @@ export default defineConfig({
   dts: true,
   clean: true,
   minify: true,
-  globalName: 'AccessibilityHelper',
+  globalName: 'Helper',
   outExtension({ format }) {
     return {
       js: format === 'iife' ? '.browser.js' : format === 'esm' ? '.mjs' : '.js',

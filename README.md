@@ -25,7 +25,7 @@ npm install @helptheweb/helper
 import { Helper } from '@helptheweb/helper';
 
 // Initialize with default options
-const accessibilityHelper = new Helper();
+const helper = new Helper();
 
 // Or initialize with custom options
 const customHelper = new Helper({

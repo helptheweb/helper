@@ -1,6 +1,6 @@
 {
   "name": "@helptheweb/helper",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "description": "A TypeScript accessibility tool for web applications",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
