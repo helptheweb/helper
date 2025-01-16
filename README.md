@@ -1,4 +1,4 @@
-# Web Accessibility Helper
+# Help The Web Accessibility Helper
 
 A lightweight TypeScript library that adds an accessibility toolbar to any website. This helper provides users with various options to customize their viewing experience, including text size adjustment, contrast modes, and readability enhancements.
 

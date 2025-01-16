@@ -227,4 +227,8 @@ export class Helper {
   }
 }
 
+if (typeof window !== 'undefined') {
+  (window as any).Helper = { Helper };
+}
+
 export default Helper;
