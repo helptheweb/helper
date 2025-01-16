@@ -4,12 +4,15 @@ export default defineConfig({
   entry: ['src/index.ts'],
   format: ['cjs', 'esm', 'iife'],
   dts: true,
-  clean: true,
   minify: true,
-  globalName: 'Helper',
+  clean: true,
+  globalName: 'AccessibilityHelper',
+  platform: 'browser',
+  target: 'es2015',
+  outDir: 'dist',
   outExtension({ format }) {
     return {
-      js: format === 'iife' ? '.browser.js' : format === 'esm' ? '.mjs' : '.js',
+      js: format === 'iife' ? `.min.js` : `.${format}.js`
     }
   }
 })
