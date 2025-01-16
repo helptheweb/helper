@@ -1,6 +1,6 @@
 {
   "name": "@helptheweb/helper",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Accessibility helper for websites by helptheweb.org",
   "type": "module",
   "main": "./dist/index.cjs.js",
@@ -33,8 +33,8 @@
   "author": "helptheweb.org",
   "license": "MIT",
   "devDependencies": {
-    "tsup": "^latest",
-    "typescript": "^latest"
+    "tsup": "8.3.5",
+    "typescript": "5.7.3"
   },
   "repository": {
     "type": "git",
