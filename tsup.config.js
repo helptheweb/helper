@@ -1,11 +1,15 @@
-import { defineConfig } from "tsup";
+import { defineConfig } from 'tsup'
 
 export default defineConfig({
-  entry: ['src/**/*.ts'],
-  format: ["cjs", "esm"], // Build for commonJS and ESmodules
-  target: 'node20',
+  entry: ['src/index.ts'],
+  format: ['cjs', 'esm', 'iife'],
   dts: true,
-  splitting: false,
-  sourcemap: true,
   clean: true,
-});
+  minify: true,
+  globalName: 'AccessibilityHelper',
+  outExtension({ format }) {
+    return {
+      js: format === 'iife' ? '.browser.js' : format === 'esm' ? '.mjs' : '.js',
+    }
+  }
+})

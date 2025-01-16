@@ -1,75 +1,92 @@
-# Accessibility Helper
+# Help The Web Accessibility Helper
 
-A TypeScript-based accessibility tool that enhances web page usability with customizable font sizes and display settings.
+A lightweight TypeScript library that adds an accessibility toolbar to any website. This helper provides users with various options to customize their viewing experience, including text size adjustment, contrast modes, and readability enhancements.
 
 ## Features
 
-- Adjustable font size (increase, decrease, reset)
+- Font size controls (increase, decrease, reset)
 - Greyscale mode
 - High contrast mode
 - Negative contrast mode
 - Link underlining
-- Readable font option (Arial)
+- Readable font option
+- Settings reset functionality
+- Collapsible interface
 
 ## Installation
 
-To use the Accessibility Helper in your project, follow these steps:
-
-1. Install the package
-   ```
-   npm install @helptheweb/helper
-   ```
-
-2. Import and initialize the Helper class in your TypeScript or JavaScript file:
-   ```typescript
-   import Helper from '@helptheweb/helper';
-
-   const accessibilityHelper = new Helper();
-   ```
+```bash
+npm install @helptheweb/helper
+```
 
 ## Usage
 
-The Accessibility Helper automatically creates a UI panel that users can interact with.
-
-### Initialization Options
-
-You can customize the Helper instance by passing options:
-
 ```typescript
-const options = {
-  defaultFontSize: 18, // Default is 16
-  buttonColor: '#007bff' // Default is '#1e232f'
-};
+import { Helper } from '@helptheweb/helper';
 
-const accessibilityHelper = new Helper(options);
+// Initialize with default options
+const accessibilityHelper = new Helper();
+
+// Or initialize with custom options
+const customHelper = new Helper({
+  defaultFontSize: 18,
+  buttonColor: '#0066cc'
+});
 ```
 
-### Methods
+## Configuration Options
 
-While the UI provides buttons for all functions, you can also programmatically control the Helper:
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `defaultFontSize` | number | 16 | The base font size in pixels |
+| `buttonColor` | string | '#1e232f' | The color of the toggle button and UI elements |
 
-```typescript
-// Adjust font size
-accessibilityHelper.increaseFontSize();
-accessibilityHelper.decreaseFontSize();
-accessibilityHelper.resetFontSize();
+## Methods
 
-// Toggle settings
-accessibilityHelper.toggleSetting('greyscale');
-accessibilityHelper.toggleSetting('highContrast');
-accessibilityHelper.toggleSetting('negativeContrast');
-accessibilityHelper.toggleSetting('underlineLinks');
-accessibilityHelper.toggleSetting('readableFont');
+### Public Methods
+
+- `increaseFontSize()`: Increases the font size by 2 pixels
+- `decreaseFontSize()`: Decreases the font size by 2 pixels (minimum: 8px)
+- `resetFontSize()`: Resets font size to the default value
+- `toggleSetting(setting)`: Toggles a specific accessibility setting
+- `resetAll()`: Resets all settings to their default values
+
+## User Interface
+
+The helper adds a collapsible panel to the right side of the webpage with the following controls:
+
+1. Text Size Controls:
+   - Increase Text Size
+   - Decrease Text Size
+   - Reset Text Size
+
+2. Display Options:
+   - Greyscale
+   - High Contrast
+   - Negative Contrast
+   - Underline Links
+   - Readable Font
+
+3. Global Controls:
+   - Reset All Settings
+
+## Development
+
+### Building the Project
+
+```bash
+npm install
+npm run build
 ```
 
-## Accessibility Considerations
+## Releasing
 
-This tool aims to improve web accessibility, but it's important to note that it should complement, not replace, good accessibility practices in your base website design.
+This package follows semantic releases. With each generated GitHub release, a GitHub action will bundle the package and release it to NPM.
 
-## Browser Compatibility
+## License
 
-This tool should work in modern browsers that support ES6+ features. Ensure you're using appropriate polyfills or transpilation for older browser support.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Contributing
+## Credits
 
-Contributions are welcome!
+Powered by [helptheweb.org](https://helptheweb.org)
