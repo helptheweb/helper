@@ -9,6 +9,6 @@
     "declaration": true,
     "outDir": "dist"
   },
-  "include": ["src/**/*.ts"],  // Updated to include src directory
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }
