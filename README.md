@@ -84,15 +84,6 @@ const accessibilityHelper = new Helper({
 - Underline Links: Forces underlines on all link elements
 - Readable Font: Switches to Arial font family
 
-## UI Elements
-
-The helper adds a floating toolbar to your website that includes:
-
-- A toggle button with an accessibility icon
-- A panel containing all accessibility controls
-- A collapsible interface that slides in/out from the right side
-- A link to helptheweb.org
-
 ## Programmatic Control
 
 You can programmatically control the helper through its methods:
