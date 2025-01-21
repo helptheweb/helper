@@ -1,18 +1,19 @@
-import { defineConfig } from 'tsup'
+import { defineConfig } from 'tsup';
 
 export default defineConfig({
   entry: ['src/index.ts'],
   format: ['cjs', 'esm', 'iife'],
   dts: true,
-  minify: true,
   clean: true,
+  minify: true,
+  sourcemap: true,
+  splitting: false,
   globalName: 'AccessibilityHelper',
-  platform: 'browser',
-  target: 'es2015',
-  outDir: 'dist',
   outExtension({ format }) {
     return {
-      js: format === 'iife' ? `.min.js` : `.${format}.js`
+      js: `.${format}.js`
     }
-  }
-})
+  },
+  platform: 'browser',
+  target: ['es2015']
+});

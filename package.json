@@ -1,24 +1,25 @@
 {
   "name": "@helptheweb/helper",
-  "version": "1.3.0",
-  "description": "Accessibility helper for websites by helptheweb.org",
+  "version": "1.3.1",
   "type": "module",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.esm.js",
   "types": "./dist/index.d.ts",
-  "browser": "./dist/index.min.js",
+  "unpkg": "./dist/index.min.js",
+  "jsdelivr": "./dist/index.min.js",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "browser": "./dist/index.min.js",
       "import": "./dist/index.esm.js",
       "require": "./dist/index.cjs.js",
-      "default": "./dist/index.js"
+      "default": "./dist/index.esm.js"
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
+  "sideEffects": false,
   "scripts": {
     "build": "tsup",
     "watch": "tsup --watch",

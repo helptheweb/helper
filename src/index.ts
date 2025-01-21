@@ -1,4 +1,4 @@
-interface HelperOptions {
+export interface HelperOptions {
   defaultFontSize?: number;
   buttonColor?: string;
 }
@@ -285,9 +285,3 @@ export class Helper {
     document.body.appendChild(container);
   }
 }
-
-if (typeof window !== 'undefined') {
-  (window as any).Helper = { Helper };
-}
-
-export default Helper;
