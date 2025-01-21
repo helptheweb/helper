@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessible Web Page</title>
+</head>
+<body style="background-color: #acd5dc;">
+    <div class="container">
+        <h1>Welcome to Our Accessible Website</h1>
+        
+        <article>
+            <h2>About Accessibility</h2>
+            <p>This page demonstrates various accessibility features. Use the accessibility helper button to adjust:</p>
+            <ul>
+                <li>Font size</li>
+                <li>Contrast modes</li>
+                <li>Text readability</li>
+                <li>And more!</li>
+            </ul>
+        </article>
+
+        <article>
+            <h2>Sample Content</h2>
+            <p>This is a sample paragraph with some text to demonstrate the accessibility features. You can adjust the font size and contrast using the accessibility helper widget.</p>
+            <p>Here's another paragraph with a <a href="https://helptheweb.org">sample link</a> that can be underlined using the accessibility helper.</p>
+        </article>
+    </div>
+
+    <!-- Accessibility Helper Script -->
+    <script src="https://unpkg.com/@helptheweb/helper"></script>
+    <script>
+        // Initialize the helper
+        const accessibilityHelper = new AccessibilityHelper.Helper();
+    </script>
+</body>
+</html>
