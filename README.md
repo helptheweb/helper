@@ -30,7 +30,7 @@ npm install @helptheweb/helper
 ```
 
 ```typescript
-import { Helper } from 'web-accessibility-helper';
+import { Helper } from '@helptheweb/helper';
 
 // Initialize with default settings
 const accessibilityHelper = new Helper();
