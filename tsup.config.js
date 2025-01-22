@@ -11,7 +11,7 @@ export default defineConfig({
   globalName: 'AccessibilityHelper',
   outExtension({ format }) {
     return {
-      js: `.${format}.js`
+      js: format === 'iife' ? '.min.js' : `.${format}.js`
     }
   },
   platform: 'browser',
