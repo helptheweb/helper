@@ -9,9 +9,10 @@ export default defineConfig({
   sourcemap: true,
   splitting: false,
   globalName: 'AccessibilityHelper',
+  outDir: 'dist',
   outExtension({ format }) {
     return {
-      js: format === 'iife' ? '.min.js' : `.${format}.js`
+      js: format === 'iife' ? `.min.js` : `.${format}.js`
     }
   },
   platform: 'browser',
