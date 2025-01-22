@@ -1,6 +1,6 @@
 {
   "name": "@helptheweb/helper",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "type": "module",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.esm.js",
@@ -10,11 +10,8 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "node": {
-        "import": "./dist/index.esm.js",
-        "require": "./dist/index.cjs.js"
-      },
-      "default": "./dist/index.min.js"
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.cjs.js"
     }
   },
   "files": [
