@@ -127,12 +127,12 @@ export class Helper {
   }
 
   private createUI = (): void => {
-    // Create a shadow root container for style isolation
+    // Create container with proper ARIA landmark
     const container = document.createElement('aside');
     container.setAttribute('aria-label', 'Accessibility options');
     container.classList.add('helper-ui');
+    this.helperContainer = container;
 
-    // Apply base styles that won't be affected by page styles
     const baseStyles = `
       .helper-ui {
         all: initial;
@@ -158,7 +158,7 @@ export class Helper {
       display: flex;
       align-items: flex-start;
       transition: transform 0.3s ease-in-out;
-      transform: translateX(200px);  /* 200px panel width - 48px button width */
+      transform: translateX(200px);
       font-size: 16px !important;
     `;
 
@@ -166,8 +166,12 @@ export class Helper {
     toggleButton.classList.add('helper-ui');
     toggleButton.setAttribute('aria-label', 'Toggle accessibility options');
     toggleButton.setAttribute('aria-expanded', 'false');
+    toggleButton.setAttribute('aria-haspopup', 'true');
     toggleButton.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512" style="color: white"><path fill="white" d="M256 112a56 56 0 1 1 56-56a56.06 56.06 0 0 1-56 56"/><path fill="white" d="m432 112.8l-.45.12l-.42.13c-1 .28-2 .58-3 .89c-18.61 5.46-108.93 30.92-172.56 30.92c-59.13 0-141.28-22-167.56-29.47a74 74 0 0 0-8-2.58c-19-5-32 14.3-32 31.94c0 17.47 15.7 25.79 31.55 31.76v.28l95.22 29.74c9.73 3.73 12.33 7.54 13.6 10.84c4.13 10.59.83 31.56-.34 38.88l-5.8 45l-32.19 176.19q-.15.72-.27 1.47l-.23 1.27c-2.32 16.15 9.54 31.82 32 31.82c19.6 0 28.25-13.53 32-31.94s28-157.57 42-157.57s42.84 157.57 42.84 157.57c3.75 18.41 12.4 31.94 32 31.94c22.52 0 34.38-15.74 32-31.94a57 57 0 0 0-.76-4.06L329 301.27l-5.79-45c-4.19-26.21-.82-34.87.32-36.9a1 1 0 0 0 .08-.15c1.08-2 6-6.48 17.48-10.79l89.28-31.21a17 17 0 0 0 1.62-.52c16-6 32-14.3 32-31.93S451 107.81 432 112.8"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512" style="color: white">
+        <path fill="white" d="M256 112a56 56 0 1 1 56-56a56.06 56.06 0 0 1-56 56"/>
+        <path fill="white" d="m432 112.8l-.45.12l-.42.13c-1 .28-2 .58-3 .89c-18.61 5.46-108.93 30.92-172.56 30.92c-59.13 0-141.28-22-167.56-29.47a74 74 0 0 0-8-2.58c-19-5-32 14.3-32 31.94c0 17.47 15.7 25.79 31.55 31.76v.28l95.22 29.74c9.73 3.73 12.33 7.54 13.6 10.84c4.13 10.59.83 31.56-.34 38.88l-5.8 45l-32.19 176.19q-.15.72-.27 1.47l-.23 1.27c-2.32 16.15 9.54 31.82 32 31.82c19.6 0 28.25-13.53 32-31.94s28-157.57 42-157.57s42.84 157.57 42.84 157.57c3.75 18.41 12.4 31.94 32 31.94c22.52 0 34.38-15.74 32-31.94a57 57 0 0 0-.76-4.06L329 301.27l-5.79-45c-4.19-26.21-.82-34.87.32-36.9a1 1 0 0 0 .08-.15c1.08-2 6-6.48 17.48-10.79l89.28-31.21a17 17 0 0 0 1.62-.52c16-6 32-14.3 32-31.93S451 107.81 432 112.8"/>
+      </svg>
     `;
     toggleButton.style.cssText = `
       background-color: ${this.buttonColor};
@@ -189,6 +193,8 @@ export class Helper {
 
     const panel = document.createElement('div');
     panel.classList.add('helper-ui');
+    panel.setAttribute('role', 'menu');
+    panel.setAttribute('aria-label', 'Accessibility adjustment options');
     panel.style.cssText = `
       background-color: #ffffff !important;
       border: 2px solid ${this.buttonColor};
@@ -201,14 +207,14 @@ export class Helper {
       padding: 10px;
       font-size: 16px !important;
     `;
-    panel.setAttribute('role', 'menu');
-    panel.setAttribute('aria-label', 'Accessibility adjustment options');
 
-    const createButton = (text: string, onClick: () => void): HTMLButtonElement => {
-      const button = document.createElement('button');
-      button.classList.add('helper-ui');
-      button.textContent = text;
-      button.style.cssText = `
+    const createMenuItem = (text: string, onClick: () => void): HTMLDivElement => {
+      const menuItem = document.createElement('div');
+      menuItem.classList.add('helper-ui');
+      menuItem.setAttribute('role', 'menuitem');
+      menuItem.setAttribute('tabindex', '0');
+      menuItem.textContent = text;
+      menuItem.style.cssText = `
         padding: 8px 12px;
         background-color: #f8f9fa;
         border: 1px solid #dee2e6;
@@ -222,24 +228,38 @@ export class Helper {
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
         text-align: center;
       `;
-      button.addEventListener('click', onClick);
-      button.addEventListener('mouseover', () => {
-        button.style.backgroundColor = '#e9ecef';
+
+      menuItem.addEventListener('click', onClick);
+      menuItem.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          onClick();
+          e.preventDefault();
+        }
       });
-      button.addEventListener('mouseout', () => {
-        button.style.backgroundColor = '#f8f9fa';
+      menuItem.addEventListener('mouseover', () => {
+        menuItem.style.backgroundColor = '#e9ecef';
       });
-      return button;
+      menuItem.addEventListener('mouseout', () => {
+        menuItem.style.backgroundColor = '#f8f9fa';
+      });
+      menuItem.addEventListener('focus', () => {
+        menuItem.style.backgroundColor = '#e9ecef';
+      });
+      menuItem.addEventListener('blur', () => {
+        menuItem.style.backgroundColor = '#f8f9fa';
+      });
+
+      return menuItem;
     };
 
-    panel.appendChild(createButton('Increase Text Size', this.increaseFontSize));
-    panel.appendChild(createButton('Decrease Text Size', this.decreaseFontSize));
-    panel.appendChild(createButton('Reset Text Size', this.resetFontSize));
-    panel.appendChild(createButton('Greyscale', () => this.toggleSetting('greyscale')));
-    panel.appendChild(createButton('High Contrast', () => this.toggleSetting('highContrast')));
-    panel.appendChild(createButton('Negative Contrast', () => this.toggleSetting('negativeContrast')));
-    panel.appendChild(createButton('Underline Links', () => this.toggleSetting('underlineLinks')));
-    panel.appendChild(createButton('Readable Font', () => this.toggleSetting('readableFont')));
+    panel.appendChild(createMenuItem('Increase Text Size', this.increaseFontSize));
+    panel.appendChild(createMenuItem('Decrease Text Size', this.decreaseFontSize));
+    panel.appendChild(createMenuItem('Reset Text Size', this.resetFontSize));
+    panel.appendChild(createMenuItem('Greyscale', () => this.toggleSetting('greyscale')));
+    panel.appendChild(createMenuItem('High Contrast', () => this.toggleSetting('highContrast')));
+    panel.appendChild(createMenuItem('Negative Contrast', () => this.toggleSetting('negativeContrast')));
+    panel.appendChild(createMenuItem('Underline Links', () => this.toggleSetting('underlineLinks')));
+    panel.appendChild(createMenuItem('Readable Font', () => this.toggleSetting('readableFont')));
 
     const separator = document.createElement('hr');
     separator.classList.add('helper-ui');
@@ -251,13 +271,13 @@ export class Helper {
     `;
     panel.appendChild(separator);
 
-    panel.appendChild(createButton('Reset All Settings', () => this.resetAll()));
+    panel.appendChild(createMenuItem('Reset All Settings', () => this.resetAll()));
 
-    const link = document.createElement('a');
-    link.classList.add('helper-ui', 'helper-ui-link');
-    link.href = 'https://helptheweb.org';
-    link.target = '_blank';
-    link.style.cssText = `
+    const poweredBy = document.createElement('div');
+    poweredBy.classList.add('helper-ui');
+    poweredBy.setAttribute('role', 'menuitem');
+    poweredBy.setAttribute('tabindex', '0');
+    poweredBy.style.cssText = `
       text-align: center;
       color: ${this.buttonColor};
       text-decoration: none;
@@ -267,21 +287,37 @@ export class Helper {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
       cursor: pointer;
     `;
-    link.textContent = 'Powered by helptheweb.org';
-    link.addEventListener('mouseover', () => {
-      link.style.textDecoration = 'underline';
+    poweredBy.textContent = 'Powered by helptheweb.org';
+    poweredBy.addEventListener('click', () => {
+      window.open('https://helptheweb.org', '_blank');
     });
-    link.addEventListener('mouseout', () => {
-      link.style.textDecoration = 'none';
+    poweredBy.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        window.open('https://helptheweb.org', '_blank');
+        e.preventDefault();
+      }
     });
-    panel.appendChild(link);
+    poweredBy.addEventListener('mouseover', () => {
+      poweredBy.style.textDecoration = 'underline';
+    });
+    poweredBy.addEventListener('mouseout', () => {
+      poweredBy.style.textDecoration = 'none';
+    });
+    poweredBy.addEventListener('focus', () => {
+      poweredBy.style.textDecoration = 'underline';
+    });
+    poweredBy.addEventListener('blur', () => {
+      poweredBy.style.textDecoration = 'none';
+    });
+
+    panel.appendChild(poweredBy);
 
     let isPanelOpen = false;
 
     toggleButton.addEventListener('click', () => {
       isPanelOpen = !isPanelOpen;
-      toggleButton.setAttribute('aria-expanded', isPanelOpen.toString());
       container.style.transform = isPanelOpen ? 'translateX(0px)' : 'translateX(200px)';
+      toggleButton.setAttribute('aria-expanded', isPanelOpen.toString());
     });
 
     container.appendChild(panel);
